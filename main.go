@@ -8,6 +8,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
+var connection *mongo.Client
+
 // Access default env credentials
 func Access() (*mongo.Client, error) {
 	token := tokens{}
@@ -32,17 +34,18 @@ func connect(token tokens) (*mongo.Client, error) {
 	}
 	clientOptions := options.Client().ApplyURI(token.uri).SetAuth(credential)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
+	connection = client
 	return client, err
 }
 
-func Close(client *mongo.Client) {
-	if err := client.Disconnect(context.TODO()); err != nil {
+func Close() {
+	if err := connection.Disconnect(context.TODO()); err != nil {
 		panic(err)
 	}
 }
 
-func Ping(client *mongo.Client) {
-	if err := client.Ping(context.TODO(), readpref.Primary()); err != nil {
+func Ping() {
+	if err := connection.Ping(context.TODO(), readpref.Primary()); err != nil {
 		panic(err)
 	}
 }
