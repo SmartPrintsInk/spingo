@@ -5,14 +5,15 @@ import (
 )
 
 type tokens struct {
-	uri          string
-	user         string
-	port         string
-	host         string
-	password     string
-	authDatabase string
-	database     string
-	collection   string
+	uri           string
+	user          string
+	port          string
+	host          string
+	password      string
+	authDatabase  string
+	database      string
+	collection    string
+	authMechanism string
 }
 
 func (t *tokens) init() {
@@ -21,4 +22,6 @@ func (t *tokens) init() {
 	t.user = os.Getenv("MongoUser")
 	t.password = os.Getenv("MongoPassword")
 	t.authDatabase = os.Getenv("MongoAuthDatabase")
+	t.authMechanism = os.Getenv("MongoAuthMechanism")
+
 }

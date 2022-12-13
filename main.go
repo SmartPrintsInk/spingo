@@ -26,7 +26,7 @@ func AccessFor(host string) (*mongo.Client, error) {
 
 func connect(token tokens) (*mongo.Client, error) {
 	credential := options.Credential{
-		AuthMechanism: "SCRAM-SHA-256",
+		AuthMechanism: token.authMechanism,
 		AuthSource:    token.authDatabase,
 		Username:      token.user,
 		Password:      token.password,
