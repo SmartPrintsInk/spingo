@@ -20,7 +20,6 @@ func AccessFor(host string) (*mongo.Client, error) {
 	token := tokens{}
 	token.init()
 	token.uri = fmt.Sprintf("mongodb://%s:%s", host, token.port)
-	fmt.Printf("%+v\n", token)
 	return connect(token)
 }
 
